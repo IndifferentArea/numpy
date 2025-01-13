@@ -1909,6 +1909,7 @@ array_reduce_ex_picklebuffer(PyArrayObject *self, int protocol)
          * just fall back on regular __reduce_ex__ implementation
          * (gh-12745).
          */
+        Py_DECREF(rev_perm);
         PyErr_Clear();
         return array_reduce_ex_regular(self, protocol);
     }
