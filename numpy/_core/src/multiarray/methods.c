@@ -1878,6 +1878,7 @@ array_reduce_ex_picklebuffer(PyArrayObject *self, int protocol)
         }
         rev_perm = PyTuple_New(0);
         if (rev_perm == NULL) {
+            Py_DECREF(transposed_array);
             return NULL;
         }
     }
