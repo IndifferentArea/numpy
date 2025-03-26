@@ -1869,7 +1869,7 @@ array_reduce_ex_picklebuffer(PyArrayObject *self, int protocol)
          * of the initial array, that is C-contiguous. */
         order = 'F';
         transposed_array = PyArray_Transpose((PyArrayObject *)self, NULL);
-        if(transposed_array == NULL) {
+        if (transposed_array == NULL) {
             return NULL;
         }
     }
