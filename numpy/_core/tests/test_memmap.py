@@ -245,7 +245,7 @@ class TestMemmap:
         memmap(self.tmpfp, shape=list(self.shape), mode='w+')
         memmap(self.tmpfp, shape=asarray(self.shape), mode='w+')
 
-    @pytest.mark.skipif(not hasattr(mmap, "MADV_NORMAL") and hasattr(mmap, "madvise"),
+    @pytest.mark.skipif(not hasattr(mmap, "MADV_NORMAL"),
                         reason="mmap.MADV_NORMAL is not available on this system.")
     def test_madvise_normal(self):
         fp = memmap(self.tmpfp, dtype=self.dtype, mode='w+', shape=self.shape)
@@ -253,6 +253,8 @@ class TestMemmap:
         # This should not raise an error
         fp.madvise(mmap.MADV_NORMAL)
 
+    @pytest.mark.skipif(not hasattr(mmap, "MADV_NORMAL"),
+                        reason="mmap.MADV_NORMAL is not available on this system.")
     def test_madvise_no_mmap(self):
         fp = memmap(self.tmpfp, dtype=self.dtype, mode='w+', shape=self.shape)
         # Manually set _mmap to None to simulate a closed/unbacked memmap
@@ -263,6 +265,8 @@ class TestMemmap:
         with pytest.raises(TypeError, match=expected_err_msg):
             fp.madvise(mmap.MADV_NORMAL)
 
+    @pytest.mark.skipif(not hasattr(mmap, "MADV_NORMAL"),
+                        reason="mmap.MADV_NORMAL is not available on this system.")
     def test_madvise_on_view(self):
         fp = memmap(self.tmpfp, dtype=self.dtype, mode='w+', shape=self.shape)
         view = fp[1:]  # Create a view
